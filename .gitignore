@@ -1,4 +1,6 @@
 node_modules
+.env
+*.log
 ._*
 /generated/prisma
 src/lib/prisma/generated/prisma
