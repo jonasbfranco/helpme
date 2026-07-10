@@ -35,8 +35,36 @@ npx prisma init --datasource-provider postgresql --output ../generated/prisma
 
 npx prisma generate
 
-ver banco de dados
+***** ver banco de dados
 npx prisma studio
 
+
+
+CONNECT EXISTING DATABASE:
+  1. Configure your DATABASE_URL in prisma.config.ts
+  2. Run prisma db pull to introspect your database.
+
+CREATE NEW DATABASE:
+  Local: npx prisma dev (runs Postgres locally in your terminal)
+  Cloud: npx create-db (creates a free Prisma Postgres database)
+
+Then, define your models in prisma/schema.prisma and run prisma migrate dev to apply your schema.
+
+Learn more: https://pris.ly/getting-started
+
+**************
+
+
+
+**************
+** deletar arquicos macOS
+find . -name "._*" -delete
+**************
+
+
+**************
+Remover arquivos do windows
+*** Windows
+Remove-Item -Recurse -Force node_modules; Remove-Item -Force package-lock.json
 **************
 

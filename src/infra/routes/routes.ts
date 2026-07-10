@@ -7,7 +7,7 @@ import { homeRoute, pingRoute } from "./testes/ping.routes.js";
 import { userRoutes } from "./usuarios/user.routes.js";
 
 // Tickets
-import { ticketRoutes } from "./chamados/ticket.routes.js";
+import { ticketRoutes } from "./tickets/ticket.routes.js";
 
 
 

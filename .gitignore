@@ -8,3 +8,5 @@ src/lib/prisma/generated/prisma
 .git
 .gitignore
 npm-debug.log
+
+/generated/prisma
