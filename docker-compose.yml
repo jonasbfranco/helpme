@@ -1,0 +1,21 @@
+services:
+  postgres:
+    container_name: postgres
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: helpme
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql_data:/bitnami/postgresql/
+volumes:
+  postgresql_data:
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
