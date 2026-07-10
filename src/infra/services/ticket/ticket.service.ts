@@ -1,3 +1,5 @@
+import { prisma } from "../../../lib/prisma/prisma.js";
+
 interface CreateTicketDTO {
   titulo: string;
   assunto: string;
@@ -10,6 +12,14 @@ export async function createTicketService(
   data: CreateTicketDTO
 ) {
 
+  const ticket = await prisma.ticket.create({
+    data: {
+      titulo: data.titulo,
+      assunto: data.assunto,
+      urgencia: data.urgencia,
+      status: data.status,
+    }
+  });
   /*
     Aqui entra sua regra de negócio:
 

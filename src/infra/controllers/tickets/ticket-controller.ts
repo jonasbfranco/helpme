@@ -11,25 +11,33 @@ interface CreateTicketBody {
 
 
 export async function createTicket(request: FastifyRequest, reply: FastifyReply) {
-  const { titulo, assunto, urgencia, status } = request.body as {
-    titulo: string;
-    assunto: string;
-    urgencia: string;
-    status: string;
-  };    
 
-  const ticket = await createTicketService({
-    titulo,
-    assunto,
-    urgencia,
-    status
-  });
+  try {
+    
+      const { titulo, assunto, urgencia, status } = request.body as {
+        titulo: string;
+        assunto: string;
+        urgencia: string;
+        status: string;
+      };    
+
+      const ticket = await createTicketService({
+        titulo,
+        assunto,
+        urgencia,
+        status
+      });
 
 
-   return reply.status(201).send({
-    message: "Chamado criado",
-    data: ticket
-  });
+      return reply.status(201).send({
+        message: "Chamado criado",
+        data: ticket
+      });
+
+  } catch (error) {
+    return reply.status(500).send({ message: "Erro ao criar chamado" });
+  }
+  
 }
 
 
