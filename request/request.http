@@ -9,7 +9,7 @@ Content-type: application/json
 
 
 ### sign-up - Cadastro
-POST http://localhost:3333/sign-up
+POST http://localhost:3333/users
 Content-type: application/json
 
 {
@@ -31,3 +31,23 @@ Content-type: application/json
 GET http://localhost:3333/me
 Content-type: application/json
 Authorization: Bearer {{token}}
+
+
+
+
+### Usuários
+GET http://localhost:3333/users
+Content-type: application/json
+
+#### Cadastrar usuário
+POST http://localhost:3333/users
+Content-type: application/json
+
+{
+  "name": "Jonas",
+  "email": "jonas@email.com"
+}
+
+#### Usuário por ID
+GET http://localhost:3333/users/1
+Content-type: application/json

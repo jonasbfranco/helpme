@@ -1,0 +1,21 @@
+### Tickets
+GET http://localhost:3333/tickets
+Content-type: application/json
+
+#### Cadastrar ticket
+POST http://localhost:3333/tickets
+Content-type: application/json
+
+{
+    "titulo": "Sistema não esta integrando funcionários",
+    "assunto": "O Sistema SOL não esta integrando os funcionários cadastrados no sistema de folha de pagamento",
+    "urgencia": "Alta",
+    "status": "Aberto"
+}
+
+#### Ticket por ID
+GET  http://localhost:3333/tickets/1
+
+
+#### Deletar Ticket por ID
+DELETE  http://localhost:3333/tickets/1

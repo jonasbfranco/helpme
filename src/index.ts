@@ -2,9 +2,8 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import "dotenv/config";
+import { routes } from "../src/infra/routes/routes.js";
 
-// Importação das rotas da API
-import { homeRoute, pingRoute } from "../src/infra/routes/testes/ping.js";
 
 // Instanciação do Fastify
 const fastify = Fastify({
@@ -18,9 +17,10 @@ fastify.register(cors, {
     methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
-// rotas de testes da API
-fastify.register(homeRoute);
-fastify.register(pingRoute);
+
+// Registro das rotas da API
+fastify.register(routes);
+
 
 // Execução do Servidor da API
 const PORT = Number(process.env.PORT) || 3333;

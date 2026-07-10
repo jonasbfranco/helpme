@@ -8,6 +8,6 @@ export async function homeRoute(fastify: FastifyInstance) {
 
 export async function pingRoute(fastify: FastifyInstance) {
     fastify.get("/ping", async (request, reply) => {
-        return reply.status(200).send({ pong: "I'm worked" });
+        return reply.status(200).send({ pong: "I'm working!" });
     });
 }

@@ -1,0 +1,8 @@
+### Testes de API
+GET http://localhost:3333/
+Content-type: application/json
+
+### Ping
+GET http://localhost:3333/ping
+Content-type: application/json
+

@@ -4,6 +4,11 @@ npm install typescript ts-node-dev @types/node --save-dev
 npm i --save-dev tsx
 npx tsc --init
 npm install dotenv
+npm install zod
+npm install bcrypt
+npm install @types/bcrypt
+npm install @types/jsonwebtoken --save-dev
+
 
 **************
 Criação do repositório no GitHub
@@ -23,5 +28,15 @@ docker compose up -d
 docker compose down
 ***************
 
+**************
+npm install prisma @types/pg --save-dev
+npm install @prisma/client @prisma/adapter-pg pg dotenv
+npx prisma init --datasource-provider postgresql --output ../generated/prisma
 
+npx prisma generate
+
+ver banco de dados
+npx prisma studio
+
+**************
 
