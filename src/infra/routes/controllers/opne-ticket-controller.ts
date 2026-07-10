@@ -1,0 +1,1 @@
+import type { FastifyRequest, FastifyReply } from "fastify";

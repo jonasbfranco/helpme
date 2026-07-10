@@ -1,18 +1,34 @@
 // Import the framework and instantiate it
-import Fastify from 'fastify'
+import Fastify from "fastify";
+import cors from "@fastify/cors";
+import "dotenv/config";
+
+// Importação das rotas da API
+import { homeRoute, pingRoute } from "../src/infra/routes/testes/ping.js";
+
+// Instanciação do Fastify
 const fastify = Fastify({
-  logger: true
-})
+    // para ativar o logs do Pino
+    //logger: true,
+});
 
-// Declare a route
-fastify.get('/', async function handler (request, reply) {
-  return { hello: 'world' }
-})
+// Configuração do CORS
+fastify.register(cors, {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+});
 
-// Run the server!
+// rotas de testes da API
+fastify.register(homeRoute);
+fastify.register(pingRoute);
+
+// Execução do Servidor da API
+const PORT = Number(process.env.PORT) || 3333;
+
 try {
-  await fastify.listen({ port: 3000 })
+    const address = await fastify.listen({ port: PORT, host: "0.0.0.0" });
+    console.log(`🚀 Server running at ${address}`);
 } catch (err) {
-  fastify.log.error(err)
-  process.exit(1)
+    fastify.log.error(err);
+    process.exit(1);
 }

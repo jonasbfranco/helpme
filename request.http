@@ -1,0 +1,33 @@
+### Testes de API
+GET http://localhost:3333/
+Content-type: application/json
+
+### Ping
+GET http://localhost:3333/ping
+Content-type: application/json
+
+
+
+### sign-up - Cadastro
+POST http://localhost:3333/sign-up
+Content-type: application/json
+
+{
+    "email": "jonasfranco@grupocpa.com.br",
+    "password": "123456"
+}
+
+### sign-in - login
+POST http://localhost:3333/sign-in
+Content-type: application/json
+
+{
+    "email": "jonasfranco@grupocpa.com.br",
+    "password": "123456"
+}
+
+### Profile
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNjE0ZWYyOC0yZjMyLTQ5NjItOTNjZi0wNGE4MzAwMWIzNDEiLCJpYXQiOjE3ODM1MDc2NjYsImV4cCI6MTc4MzU5NDA2Nn0.HuvfsJIRDmtqPdK9uc37LW9t-1sjXtqR3Zm6pIqQHE8
+GET http://localhost:3333/me
+Content-type: application/json
+Authorization: Bearer {{token}}

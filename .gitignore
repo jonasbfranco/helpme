@@ -5,3 +5,6 @@ node_modules
 /generated/prisma
 src/lib/prisma/generated/prisma
 /src/lib/prisma/generated/prisma
+.git
+.gitignore
+npm-debug.log
