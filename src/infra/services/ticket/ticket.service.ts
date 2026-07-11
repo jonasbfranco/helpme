@@ -5,6 +5,8 @@ interface CreateTicketDTO {
   assunto: string;
   urgencia: string;
   status: string;
+  criador: string;
+  analista: string;
 }
 
 
@@ -18,8 +20,13 @@ export async function createTicketService(
       assunto: data.assunto,
       urgencia: data.urgencia,
       status: data.status,
+      criador: data.criador,
+      analista: data.analista,
     }
   });
+
+  console.log("Ticket criado:", ticket);
+
   /*
     Aqui entra sua regra de negócio:
 
@@ -31,7 +38,11 @@ export async function createTicketService(
   */
 
 
-  const ticket = {
+    return {
+      ticket,
+    };
+
+/*   const ticket = {
     id: 11,
     titulo: data.titulo,
     assunto: data.assunto,
@@ -41,7 +52,7 @@ export async function createTicketService(
   };
 
 
-  return ticket;
+  return ticket; */
 
 }
 

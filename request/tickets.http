@@ -10,7 +10,9 @@ Content-type: application/json
     "titulo": "Sistema não esta integrando funcionários",
     "assunto": "O Sistema SOL não esta integrando os funcionários cadastrados no sistema de folha de pagamento",
     "urgencia": "Alta",
-    "status": "Aberto"
+    "status": "Aberto",
+    "criador": "João",
+    "analista": "Maria"
 }
 
 #### Ticket por ID
