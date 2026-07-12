@@ -63,19 +63,19 @@ export async function updateTicket(
         const { id } = request.params as { id: string };
         const { titulo, assunto, urgencia, status, criador, analista } = request.body as CreateTicketBody;
 
-        const ticket = await updateTicketService(id, {
+        /* const ticket = await updateTicketService(id, {
             titulo,
             assunto,
             urgencia,
             status,
             criador,
             analista,
-        });
+        }); 
 
         return reply.status(200).send({
             message: "Chamado atualizado",
             data: ticket,
-        });
+        }); */
     } catch (error) {
         console.error("Erro ao atualizar ticket:", error);
 

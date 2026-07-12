@@ -41,19 +41,6 @@ export async function createTicketService(
     return {
       ticket,
     };
-
-/*   const ticket = {
-    id: 11,
-    titulo: data.titulo,
-    assunto: data.assunto,
-    urgencia: data.urgencia,
-    status: data.status,
-    createdAt: new Date()
-  };
-
-
-  return ticket; */
-
 }
 
 
@@ -67,12 +54,16 @@ export async function getTicketsService() {
   */
 
 
-  return [
+    const ticket = await prisma.ticket.findMany();
+
+    return ticket;
+
+  /* return [
     {
       id: 1,
       titulo: "Computador não liga",
       status: "Aberto"
     }
   ];
-
+ */
 }

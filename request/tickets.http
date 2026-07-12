@@ -15,6 +15,10 @@ Content-type: application/json
     "analista": "Maria"
 }
 
+
+#### Buscar porTickets
+GET  http://localhost:3333/tickets
+
 #### Ticket por ID
 GET  http://localhost:3333/tickets/1
 
