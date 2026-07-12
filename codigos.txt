@@ -1,0 +1,45 @@
+await prisma.ticketHistorico.create({
+  data: {
+    ticketId: "abc123",
+    analista: "João",
+    mensagem: "Chamado assumido",
+    status: "Em atendimento"
+  }
+})
+
+
+
+const ticket = await prisma.ticket.findUnique({
+  where: {
+    id: "abc123"
+  },
+  include: {
+    historicos: {
+      orderBy: {
+        createdAt: "asc"
+      }
+    }
+  }
+})
+
+
+
+{
+  "id": "abc123",
+  "titulo": "Erro na impressora",
+  "status": "Em atendimento",
+  "historicos": [
+    {
+      "mensagem": "Chamado assumido",
+      "analista": "João"
+    },
+    {
+      "mensagem": "Solicitado reiniciar computador",
+      "analista": "João"
+    },
+    {
+      "mensagem": "Problema resolvido",
+      "analista": "João"
+    }
+  ]
+}

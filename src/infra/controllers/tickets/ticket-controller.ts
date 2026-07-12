@@ -53,3 +53,34 @@ export async function getTickets(request: FastifyRequest, reply: FastifyReply) {
         .status(200)
         .send({ message: "Chamados encontrados", data: tickets });
 }
+
+
+export async function updateTicket(
+    request: FastifyRequest,
+    reply: FastifyReply,
+) {
+    try {
+        const { id } = request.params as { id: string };
+        const { titulo, assunto, urgencia, status, criador, analista } = request.body as CreateTicketBody;
+
+        const ticket = await updateTicketService(id, {
+            titulo,
+            assunto,
+            urgencia,
+            status,
+            criador,
+            analista,
+        });
+
+        return reply.status(200).send({
+            message: "Chamado atualizado",
+            data: ticket,
+        });
+    } catch (error) {
+        console.error("Erro ao atualizar ticket:", error);
+
+        return reply.status(500).send({
+            message: "Erro ao atualizar chamado",
+        });
+    }
+}

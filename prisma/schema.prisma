@@ -26,5 +26,40 @@ model Ticket {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  histories  TicketHistory[]
+
   @@map("tickets")
+}
+
+
+model TicketHistory {
+  id          String   @id @default(uuid())
+  // Chave estrangeira
+  ticketId    String
+  // Relação
+  ticket       Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  mensagem     String
+  analista     String
+  // status       String?
+  // Comentário, alteração de status, anexo, etc.
+  tipo         String   @default("comentario")
+
+  statusAntes  String?
+  statusDepois String?
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("ticket_history")
+}
+
+
+model User {
+  id String @id @default(uuid())
+  // id    Int     @id @default(autoincrement())
+  nome String
+  email String @unique
+  senha String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
 }
