@@ -67,3 +67,14 @@ export async function getTicketsService() {
   ];
  */
 }
+
+
+
+export async function updateAnalistService(id: string, data: Partial<CreateTicketDTO>) {
+  const ticket = await prisma.ticket.update({
+    where: { id },
+    data,
+  });
+
+  return ticket;
+}

@@ -12,16 +12,24 @@ Content-type: application/json
     "urgencia": "Alta",
     "status": "Aberto",
     "criador": "João",
-    "analista": "Maria"
+    "analista": ""
 }
 
+
+#### Atualizar analista do Ticket
+PUT  http://localhost:3333/tickets/1c736f22-24bf-41e0-83a6-f9e81d01c25d
+Content-type: application/json
+
+{
+    "analista": "Francisco"
+}
 
 #### Buscar porTickets
 GET  http://localhost:3333/tickets
 
 #### Ticket por ID
-GET  http://localhost:3333/tickets/1
+GET  http://localhost:3333/tickets/1c736f22-24bf-41e0-83a6-f9e81d01c25d
 
 
 #### Deletar Ticket por ID
-DELETE  http://localhost:3333/tickets/1
+DELETE  http://localhost:3333/tickets/1c736f22-24bf-41e0-83a6-f9e81d01c25d

@@ -2,6 +2,7 @@ import type { FastifyRequest, FastifyReply } from "fastify";
 import {
     createTicketService,
     getTicketsService,
+    updateAnalistService,
 } from "../../services/ticket/ticket.service.js";
 
 interface CreateTicketBody {
@@ -55,32 +56,46 @@ export async function getTickets(request: FastifyRequest, reply: FastifyReply) {
 }
 
 
-export async function updateTicket(
+export async function updateAnalistTicket(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
     try {
         const { id } = request.params as { id: string };
-        const { titulo, assunto, urgencia, status, criador, analista } = request.body as CreateTicketBody;
+        const { analista } = request.body as CreateTicketBody;
 
-        /* const ticket = await updateTicketService(id, {
-            titulo,
-            assunto,
-            urgencia,
-            status,
-            criador,
+        const ticket = await updateAnalistService(id, {
             analista,
         }); 
 
         return reply.status(200).send({
-            message: "Chamado atualizado",
+            message: "Analista atualizado",
             data: ticket,
-        }); */
+        });
+
     } catch (error) {
-        console.error("Erro ao atualizar ticket:", error);
+        console.error("Erro ao atualizar analista:", error);
 
         return reply.status(500).send({
-            message: "Erro ao atualizar chamado",
+            message: "Erro ao atualizar analista",
         });
     }
+
+
+   /*  export async function updateHistoryTicket(request: FastifyRequest, reply: FastifyReply){
+        // Implementation for updating ticket history
+        try {
+            
+            const { id } = request.params as { id: string };
+            const { titulo, assunto, urgencia, status, criador, analista } = request.body as CreateTicketBody;
+
+        } catch (error) {
+            console.error("Erro ao atualizar historico do ticket:", error);
+
+            return reply.status(500).send({
+                message: "Erro ao atualizar historico dochamado",
+        });
+        }
+    } */
+
 }

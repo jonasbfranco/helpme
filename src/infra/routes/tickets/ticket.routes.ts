@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 
-import { createTicket, getTickets, updateTicket } from "../../controllers/tickets/ticket-controller.js";
+import { createTicket, getTickets, updateAnalistTicket } from "../../controllers/tickets/ticket-controller.js";
 
 export async function ticketRoutes(fastify: FastifyInstance) {
 
@@ -8,7 +8,9 @@ export async function ticketRoutes(fastify: FastifyInstance) {
 
   fastify.get("/tickets", getTickets);
 
-  fastify.put("/tickets/:id", updateTicket); //botao atribuir ou trocar analista
+  fastify.put("/tickets/:id", updateAnalistTicket); //botao atribuir analista no ticket
+
+  // fastify.put("/tickets/:id", updateTicket); //botao atribuir ou trocar analista
 
   //fastify.get("/tickets/:id", getTicketById); // buscar por um chamado especifico
 
