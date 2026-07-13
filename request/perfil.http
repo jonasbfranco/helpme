@@ -1,0 +1,12 @@
+### Exbir todos os perfis
+GET http://localhost:3333/perfil
+Content-type: application/json
+
+### Criar um perfil
+POST http://localhost:3333/perfil
+Content-type: application/json
+
+{
+    "nome": "Administrador",
+    "descricao": "Usuário com permissões de administrador"
+}

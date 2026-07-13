@@ -48,11 +48,21 @@ export async function createTicket(
 }
 
 export async function getTickets(request: FastifyRequest, reply: FastifyReply) {
-    const tickets = await getTicketsService();
+    
+    try {
+        const tickets = await getTicketsService();
+    
+        return reply
+            .status(200)
+            .send({ message: "Chamados encontrados", data: tickets });
+    } catch (error) {
+        console.error("Erro ao buscar tickets:", error);
 
-    return reply
-        .status(200)
-        .send({ message: "Chamados encontrados", data: tickets });
+        return reply
+            .status(500)
+            .send({ message: "Erro ao buscar chamados", data: [] });
+        
+    }
 }
 
 

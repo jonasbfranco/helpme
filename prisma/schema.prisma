@@ -12,7 +12,9 @@ datasource db {
   provider = "postgresql"
 }
 
-// tabela tickets
+/****************************************************************************
+ * Tabela de histórico de tickets nao usada, mas mantida para referencia futura
+ ****************************************************************************/
 model Ticket {
   id String @id @default(uuid())
   // id    Int     @id @default(autoincrement())
@@ -26,13 +28,16 @@ model Ticket {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  histories  TicketHistory[]
+  //histories  TicketHistory[]
 
   @@map("tickets")
 }
 
 
-model TicketHistory {
+/****************************************************************************
+ * Tabela de histórico de tickets nao usada, mas mantida para referencia futura
+ ****************************************************************************/
+/* model TicketHistory {
   id          String   @id @default(uuid())
   // Chave estrangeira
   ticketId    String
@@ -49,10 +54,12 @@ model TicketHistory {
   createdAt    DateTime @default(now()) @map("created_at")
 
   @@map("ticket_history")
-}
+} */
 
-
-model User {
+/****************************************************************************
+ * Tabela de usuarios nao usada, mas mantida para referencia futura
+ ****************************************************************************/
+/* model User {
   id String @id @default(uuid())
   // id    Int     @id @default(autoincrement())
   nome String
@@ -62,4 +69,219 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+} */
+
+
+model Perfil {
+  id          Int       @id @default(autoincrement())
+  nome        String    @unique
+  descricao   String?
+
+  usuarios    Usuario[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("perfis")
+}
+
+model Usuario {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  login       String    @unique
+  email       String    @unique
+  senha       String
+  ativo       Boolean   @default(true)
+
+  perfilId    Int
+  perfil      Perfil    @relation(fields: [perfilId], references: [id])
+
+  // Chamados criados pelo usuário
+  chamadosCriados Chamado[] @relation("UsuarioChamados")
+
+  // Chamados atendidos pelo analista
+  chamadosAtendidos Chamado[] @relation("AnalistaChamados")
+
+  comentarios Comentario[]
+
+  historicos HistoricoChamado[]
+
+  anexos Anexo[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("usuarios")
+}
+
+model Status {
+  id          Int      @id @default(autoincrement())
+  nome        String   @unique
+  ordem       Int      @default(0)
+
+  chamados    Chamado[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("status")
+}
+
+model Urgencia {
+  id          Int      @id @default(autoincrement())
+  nome        String   @unique
+
+  chamados    Chamado[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model Chamado {
+
+  id          Int      @id @default(autoincrement())
+
+  titulo      String
+  descricao   String
+
+  usuarioId   Int
+  usuario     Usuario  @relation("UsuarioChamados", fields: [usuarioId], references: [id])
+
+  analistaId  Int?
+  analista    Usuario? @relation("AnalistaChamados", fields: [analistaId], references: [id])
+
+  statusId    Int
+  status      Status   @relation(fields: [statusId], references: [id])
+
+  urgenciaId  Int
+  urgencia    Urgencia @relation(fields: [urgenciaId], references: [id])
+
+  categoriaId Int
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
+
+  comentarios Comentario[]
+
+  historicos  HistoricoChamado[]
+
+  createdAt   DateTime @default(now())
+
+  updatedAt   DateTime @updatedAt
+
+  closedAt    DateTime?
+
+  @@map("chamados")
+}
+
+model Comentario {
+
+  id          Int      @id @default(autoincrement())
+
+  mensagem    String
+
+  interno     Boolean  @default(false)
+
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+
+  chamadoId   Int
+  chamado     Chamado  @relation(fields: [chamadoId], references: [id])
+
+  anexos      Anexo[]
+
+  createdAt   DateTime @default(now())
+
+  updatedAt   DateTime @updatedAt
+
+  @@map("comentarios")
+}
+
+
+model Anexo {
+
+  id             Int      @id @default(autoincrement())
+
+  nomeOriginal   String
+
+  nomeArquivo    String
+
+  caminho        String
+
+  mimeType       String
+
+  tamanho        Int
+
+  comentarioId   Int
+  comentario      Comentario @relation(fields: [comentarioId], references: [id])
+
+  usuarioId      Int
+  usuario        Usuario @relation(fields: [usuarioId], references: [id])
+
+  createdAt      DateTime @default(now())
+
+  updatedAt      DateTime @updatedAt
+
+
+  @@map("anexos") 
+}
+
+model HistoricoChamado {
+
+  id                  Int       @id @default(autoincrement())
+
+  chamadoId           Int
+  chamado             Chamado   @relation(fields: [chamadoId], references: [id])
+
+  usuarioId           Int
+  usuario             Usuario   @relation(fields: [usuarioId], references: [id])
+
+  tipo                TipoHistorico
+
+  descricao           String?
+
+  statusAnteriorId    Int?
+  statusNovoId        Int?
+
+  urgenciaAnteriorId  Int?
+  urgenciaNovaId      Int?
+
+  analistaAnteriorId  Int?
+  analistaNovoId      Int?
+
+  createdAt           DateTime @default(now())
+
+
+  @@map("historicos")
+}
+
+enum TipoHistorico {
+
+  CRIACAO
+
+  COMENTARIO
+
+  ALTERACAO_STATUS
+
+  ALTERACAO_URGENCIA
+
+  ALTERACAO_ANALISTA
+
+  REABERTURA
+
+  ENCERRAMENTO
+}
+
+model Categoria {
+
+  id          Int @id @default(autoincrement())
+
+  nome        String @unique
+
+  chamados    Chamado[]
+
+  createdAt   DateTime @default(now())
+
+  updatedAt   DateTime @updatedAt
+
+  @@map("categorias")
 }
