@@ -5,6 +5,7 @@ import {
     createPerfilService,
     getPerfisService,
     editPerfisService,
+    deletePerfilService,
 } from "../../services/perfil/perfil.service.js";
 
 interface CreatePerfilBody {
@@ -89,6 +90,23 @@ export async function editPerfil(request: FastifyRequest, reply: FastifyReply) {
         }   
     }
 }
+
+
+export async function deletePerfil() {
+    const { id }  = request.params as { id: string };
+
+    /* const perfil = await deletePerfilService({
+            id: Number(id),
+            nome: nome,
+            descricao:  descricao,
+        }); */
+
+        return reply
+            .status(200)
+            .send({ message: "Perfil alterado", data: perfil });
+
+}
+
 
     
 

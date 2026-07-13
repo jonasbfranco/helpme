@@ -9,6 +9,7 @@ interface EditPerfil {
   id: number; // ou string, dependendo do tipo do seu schema Prisma
   nome: string;
   descricao: string;
+  ativo: boolean;
 }
 
 export async function createPerfilService(data: CreatePerfil) {
@@ -67,4 +68,28 @@ export async function editPerfisService(data: EditPerfil) {
   });
 
   return perfil;
+}
+
+export async function deletePerfilService(data: EditPerfil){
+  const perfilExist = await prisma.perfil.findUnique({
+      where: {
+          id: data.id,
+      },
+  });
+
+  if (!perfilExist) {
+    throw new Error("Perfil não encontrado");
+  }
+
+  const perfil = await prisma.perfil.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      ativo: data.ativo,
+    }
+  });
+
+  return perfil;
+
 }

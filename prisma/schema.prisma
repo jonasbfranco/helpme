@@ -76,6 +76,7 @@ model Perfil {
   id          Int       @id @default(autoincrement())
   nome        String    @unique
   descricao   String?
+  ativo       Boolean   @default(true)
 
   usuarios    Usuario[]
 
