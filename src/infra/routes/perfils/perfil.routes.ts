@@ -6,13 +6,15 @@ import {
     editPerfil,
     deletePerfil,
     getPerfilAtivo,
+    getPerfilUnico,
 } from "../../controllers/perfis/perfil-controller.js";
 
 export async function perfilRoutes(fastify: FastifyInstance) {
+    
     fastify.post("/perfil", createPerfil);
 
     fastify.get("/perfil", getPerfil);
-
+/*
     fastify.get("/perfil/1", async () => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -23,6 +25,9 @@ export async function perfilRoutes(fastify: FastifyInstance) {
             ativo: true,
         };
     });
+ */
+
+    fastify.get("/perfil/:id", getPerfilUnico);
 
     fastify.get("/perfilAtivo", getPerfilAtivo);
 

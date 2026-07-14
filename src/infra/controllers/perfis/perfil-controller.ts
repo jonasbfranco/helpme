@@ -7,6 +7,7 @@ import {
     editPerfisService,
     deletePerfilService,
     getPerfilAtivoService,
+    getPerfilUnicoService,
 } from "../../services/perfil/perfil.service.js";
 
 interface CreatePerfilBody {
@@ -65,6 +66,30 @@ export async function getPerfil(request: FastifyRequest, reply: FastifyReply) {
 
 }
 
+
+export async function getPerfilUnico(request: FastifyRequest, reply: FastifyReply) { 
+    
+    try {
+        const { id }  = request.params as { id: string };
+        // console.log("Request params:", id);
+        
+         const perfil = await getPerfilUnicoService(Number(id));
+
+        return reply
+            .status(200)
+            .send({ message: "Perfil encontrado", data: perfil });
+        
+    } catch (error) {
+        console.error(error);
+        return reply
+            .status(500)
+            .send({ message: "Erro ao buscar o perfil unico", data: [] });
+    }
+
+}
+
+
+
 export async function getPerfilAtivo(request: FastifyRequest, reply: FastifyReply) { 
     
     try {
@@ -89,7 +114,7 @@ export async function editPerfil(request: FastifyRequest, reply: FastifyReply) {
         const { id }  = request.params as { id: string };
         const { nome, descricao, ativo } = request.body as CreatePerfilBody;
         // console.log("Request params:", id);
-        console.log("Nome:", nome, "Descrição:", descricao, "Ativo:", ativo)
+        // console.log("Nome:", nome, "Descrição:", descricao, "Ativo:", ativo)
         // console.log(JSON.stringify(request.params));
 
         const perfil = await editPerfisService({
@@ -118,12 +143,7 @@ export async function deletePerfil(request: FastifyRequest, reply: FastifyReply)
     
     try {
         const { id }  = request.params as { id: string };
-        console.log(id);
-        console.log("controllers: passou aqui...")
-
         const perfil = await deletePerfilService( Number(id) );
-
-         console.log("controllers: passou aqui....");
         
 
         return reply

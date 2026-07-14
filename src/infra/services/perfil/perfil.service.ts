@@ -38,11 +38,25 @@ export async function createPerfilService(data: CreatePerfil) {
   };
 }
 
+
 export async function getPerfisService() {
   const perfis = await prisma.perfil.findMany();
 
   return perfis;
 }
+
+
+export async function getPerfilUnicoService(id: number) {
+  
+  const perfis = await prisma.perfil.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return perfis;
+}
+
 
 
 export async function getPerfilAtivoService() {
