@@ -38,7 +38,7 @@ switch ($opcao) {
 }
 
 
-## $mensagem = Read-Host "Mensagem"
+$mensagem = Read-Host "Mensagem"
 $commitMessage = "{0}: {1}" -f $tipo, $mensagem
 
 ##git commit -m "$tipo`: $mensagem"
