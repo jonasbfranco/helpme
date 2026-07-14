@@ -5,10 +5,10 @@ git status
 
 echo
 echo "Escolha o tipo do commit:"
-echo "1) Initial commit	🎉 :tada:"
-echo "2) Version tag	🔖 :bookmark:"
-echo "3) New feature	✨ :sparkles:"
-echo "4) Bugfix	        🐛 :bug:"
+echo "1) Initial commit 🎉 :tada:"
+echo "2) Version tag    🔖 :bookmark:"
+echo "3) New feature    ✨ :sparkles:"
+echo "4) Bugfix         🐛 :bug:"
 echo "5) feat"
 echo "6) fix"
 echo "7) docs"
