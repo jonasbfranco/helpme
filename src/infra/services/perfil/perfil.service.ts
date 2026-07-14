@@ -94,13 +94,28 @@ export async function editPerfisService(data: EditPerfil) {
   
  const perfilExist = await prisma.perfil.findUnique({
       where: {
-          id: data.id,
+        id: data.id,
       },
   });
 
   if (!perfilExist) {
     throw new Error("Perfil não encontrado");
   }
+
+
+ const perfilMesmoNome = await prisma.perfil.findUnique({
+      where: {
+        nome: data.nome,
+        NOT: {
+          id: data.id,
+        },
+      },
+  });
+
+  if (perfilMesmoNome) {
+    throw new Error("Já existe um perfil com esse nome");
+  }
+
 
   const perfil = await prisma.perfil.update({
     where: {
@@ -112,7 +127,7 @@ export async function editPerfisService(data: EditPerfil) {
       ...(data.ativo !== undefined && { ativo: data.ativo }),
     }
   });
-
+  
   return perfil;
 }
 
@@ -124,6 +139,7 @@ export async function deletePerfilService(id: number){
       },
   });
 
+  console.log(perfil)
 
   if (!perfil) {
     throw new Error("Perfil não encontrado");

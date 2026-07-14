@@ -130,12 +130,23 @@ export async function editPerfil(request: FastifyRequest, reply: FastifyReply) {
             .send({ message: "Perfil alterado", data: perfil });
 
     } catch (error) {
-        if (error instanceof Error && error.message === "Perfil não encontrado") {
-            return reply.status(404).send({
-                message: error.message,
-            });
-        }   
+        //console.error(error);
+
+        if (error instanceof Error) {
+            if (error.message === "Perfil não encontrado") {
+                return reply.status(404).send({ message: error.message });
+            }
+
+            if (error.message === "Já existe um perfil com esse nome") {
+                return reply.status(409).send({ message: error.message });
+            }
+        }
+
+        return reply.status(500).send({
+            message: "Erro interno do servidor",
+        });
     }
+
 }
 
 

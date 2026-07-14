@@ -25,8 +25,8 @@ PUT http://localhost:3333/perfil/1
 Content-type: application/json
 
 {
-    "nome": "Administrador",
-    "descricao": "Usuário com permissões de administrador",
+    "nome": "Analista",
+    "descricao": "Usuário com permissões de analista",
     "ativo": true
 }
 
