@@ -2,11 +2,11 @@
 GET http://localhost:3333/perfil
 Content-type: application/json
 
-### Exbir todos os perfis
+### Exbir perfil unico
 GET http://localhost:3333/perfil/1
 Content-type: application/json
 
-### Exbir todos os perfis
+### Exbir todos os perfis ativos
 GET http://localhost:3333/perfilAtivo
 Content-type: application/json
 
@@ -21,14 +21,15 @@ Content-type: application/json
 
 
 ### Editar um perfil
-PUT http://localhost:3333/perfil/2
+PUT http://localhost:3333/perfil/1
 Content-type: application/json
 
 {
-    "nome": "Analista",
-    "descricao": "Usuário com permissões de analistas"
+    "nome": "Administrador",
+    "descricao": "Usuário com permissões de administrador",
+    "ativo": true
 }
 
 
 ### Deletar um perfil
-DELETE  http://localhost:3333/perfil/1
+DELETE  http://localhost:3333/perfil/2

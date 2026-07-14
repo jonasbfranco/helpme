@@ -5,6 +5,7 @@ import {
     getPerfil,
     editPerfil,
     deletePerfil,
+    getPerfilAtivo,
 } from "../../controllers/perfis/perfil-controller.js";
 
 export async function perfilRoutes(fastify: FastifyInstance) {
@@ -18,12 +19,12 @@ export async function perfilRoutes(fastify: FastifyInstance) {
         return {
             id: 1,
             nome: "Administrador",
-            descricao: "Perfil administrador",
+            descricao: "Perfil administrador - Rota perfil unico",
             ativo: true,
         };
     });
 
-    fastify.get("/perfilAtivo", getPerfil);
+    fastify.get("/perfilAtivo", getPerfilAtivo);
 
     fastify.put("/perfil/:id", editPerfil);
 

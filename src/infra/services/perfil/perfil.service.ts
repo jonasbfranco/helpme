@@ -45,6 +45,37 @@ export async function getPerfisService() {
 }
 
 
+export async function getPerfilAtivoService() {
+  /* const perfis = await prisma.perfil.findMany({
+    where: {
+      ativo: true,
+    },
+  }); */
+
+  /* const totalAtivos = await prisma.perfil.count({
+    where: {
+      ativo: true,
+    },
+  }); */
+
+  const [perfis, totalAtivos] = await Promise.all([
+    prisma.perfil.findMany({
+      where: {
+        ativo: true,
+      },
+    }),
+    prisma.perfil.count({
+      where: {
+        ativo: true,
+      },
+    }),
+  ]);
+
+  // return perfis;
+  return { perfis, totalAtivos, };
+}
+
+
 export async function editPerfisService(data: EditPerfil) {
   
  const perfilExist = await prisma.perfil.findUnique({
@@ -64,6 +95,7 @@ export async function editPerfisService(data: EditPerfil) {
     data: {
       nome: data.nome,
       descricao: data.descricao,
+      ...(data.ativo !== undefined && { ativo: data.ativo }),
     }
   });
 

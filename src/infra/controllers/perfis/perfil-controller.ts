@@ -6,11 +6,13 @@ import {
     getPerfisService,
     editPerfisService,
     deletePerfilService,
+    getPerfilAtivoService,
 } from "../../services/perfil/perfil.service.js";
 
 interface CreatePerfilBody {
     nome: string;
     descricao: string;
+    ativo?: boolean | undefined;
 }
 
 
@@ -63,20 +65,40 @@ export async function getPerfil(request: FastifyRequest, reply: FastifyReply) {
 
 }
 
+export async function getPerfilAtivo(request: FastifyRequest, reply: FastifyReply) { 
+    
+    try {
+        const perfis = await getPerfilAtivoService();
+
+        return reply
+            .status(200)
+            .send({ message: "Perfis ativos encontrados", data: perfis });
+        
+    } catch (error) {
+        return reply
+            .status(500)
+            .send({ message: "Erro ao buscar perfis ativos", data: [] });
+    }
+
+}
+
 
 export async function editPerfil(request: FastifyRequest, reply: FastifyReply) {
     try {
+
         const { id }  = request.params as { id: string };
-        const { nome, descricao } = request.body as CreatePerfilBody;
+        const { nome, descricao, ativo } = request.body as CreatePerfilBody;
         // console.log("Request params:", id);
-        // console.log("Nome:", nome, "Descrição:", descricao)
+        console.log("Nome:", nome, "Descrição:", descricao, "Ativo:", ativo)
         // console.log(JSON.stringify(request.params));
 
         const perfil = await editPerfisService({
             id: Number(id),
             nome: nome,
             descricao:  descricao,
+            ...(ativo !== undefined && { ativo }),
         });
+
 
         return reply
             .status(200)
