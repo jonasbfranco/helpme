@@ -92,18 +92,27 @@ export async function editPerfil(request: FastifyRequest, reply: FastifyReply) {
 }
 
 
-export async function deletePerfil() {
-    const { id }  = request.params as { id: string };
+export async function deletePerfil(request: FastifyRequest, reply: FastifyReply) {
+    
+    try {
+        const { id }  = request.params as { id: string };
+        console.log(id);
+        console.log("controllers: passou aqui...")
 
-    /* const perfil = await deletePerfilService({
-            id: Number(id),
-            nome: nome,
-            descricao:  descricao,
-        }); */
+        const perfil = await deletePerfilService( Number(id) );
+
+         console.log("controllers: passou aqui....");
+        
 
         return reply
             .status(200)
-            .send({ message: "Perfil alterado", data: perfil });
+            .send({ message: "Perfil desativado com sucesso", data: perfil });
+        
+    } catch (error: any) {
+        return reply.status(400).send({
+            message: error.message,
+        });
+    }
 
 }
 

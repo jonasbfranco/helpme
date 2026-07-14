@@ -1,13 +1,31 @@
 import type { FastifyInstance } from "fastify";
 
-import { createPerfil, getPerfil, editPerfil } from "../../controllers/perfis/perfil-controller.js";
+import {
+    createPerfil,
+    getPerfil,
+    editPerfil,
+    deletePerfil,
+} from "../../controllers/perfis/perfil-controller.js";
 
 export async function perfilRoutes(fastify: FastifyInstance) {
+    fastify.post("/perfil", createPerfil);
 
-  fastify.post("/perfil", createPerfil);
+    fastify.get("/perfil", getPerfil);
 
-  fastify.get("/perfil", getPerfil);
-  
-  fastify.put("/perfil/:id", editPerfil);
+    fastify.get("/perfil/1", async () => {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
+        return {
+            id: 1,
+            nome: "Administrador",
+            descricao: "Perfil administrador",
+            ativo: true,
+        };
+    });
+
+    fastify.get("/perfilAtivo", getPerfil);
+
+    fastify.put("/perfil/:id", editPerfil);
+
+    fastify.delete("/perfil/:id", deletePerfil);
 }
