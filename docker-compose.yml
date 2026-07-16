@@ -19,7 +19,13 @@ services:
       DATABASE_URL: postgres://docker:docker@postgres:5432/helpme
     depends_on:
       - postgres
-    command: npm run dev
+    # command: npm run dev
+    # command: > 
+      # sh -c "npx prisma migrate deploy && npm run dev"
+    # migrate dev → desenvolvimento, cria novas migrations.
+    # migrate deploy → produção, apenas aplica migrations já existentes.
+    command: > 
+      sh -c "npx prisma migrate dev && npm run dev"
 
   postgres:
     container_name: postgres-helpme
